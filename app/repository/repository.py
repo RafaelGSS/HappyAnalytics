@@ -1,2 +1,1 @@
-def select():
-    pass
+from app.database.db import DB

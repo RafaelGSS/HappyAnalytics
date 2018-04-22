@@ -1,0 +1,2 @@
+class FunnyBot(object):
+    pass
