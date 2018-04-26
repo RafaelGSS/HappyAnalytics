@@ -1,6 +1,13 @@
 from bootstrap.main_app import app
+from app.repository.repository import Repository
+from app.bot.funny_bot import FunnyBot
+from app.service.slack import Slack
 from flask import request
 
+# Dependencies Injection latter.
+repo = Repository()
+bot = FunnyBot()
+slack = Slack()
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
@@ -10,15 +17,17 @@ def index():
     return "Hello moto"
 
 
-@app.route('/api/outhook', methods=['POST', 'GET'])
+@app.route('/api/outhook', methods=['POST'])
 def outhook():
-    data = request.form
-    with open("test.txt", "w") as files:
-        files.write(str(data))
+    repo.store_message(request.form)
+    response = bot.analyze_response(request.form['text'])
+    slack.post_message(request.form['channel_id'], response)
 
-    #POST MESSAGE SERVICE SLACK AND STORE IN DATABASE
     return "Hello moto"
 
+# STORE IN DATABASE
+# ANALITICS
+# RESPONSE MESSAGE
 
 @app.route('/api/private/humor')
 # Receiving data and store a database for analytics
