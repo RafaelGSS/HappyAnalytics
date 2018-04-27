@@ -4,6 +4,7 @@ from routes import web, api
 
 
 def init():
-    main_app.app.run(debug=True)
+    web.outhook_test()
+    #main_app.app.run(debug=True)
 
 
