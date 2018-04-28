@@ -17,12 +17,14 @@ def index():
         files.write(str(data))
     return "Hello moto"
 
+
 def outhook_test():
     data ={'token': '6aEIbL0AaoylQbD9HNSlKYDR','channel_name':'general',
         'trigger_word':'paulinho','team_id':'TAC09TX6K', 'user_id':'UAB2X1Z7F','user_name':'rafael.nunu',
         'text':'paulinho: que isso ?', 'service_id':'352922744983','channel_id':'CAB2VSA7P','team_domain':'bot-pylack'}
     repo.store_message(data, 'messages')
     return True
+
 
 @app.route('/api/channel/outhook', methods=['POST'])
 def outhook():
@@ -40,7 +42,3 @@ def outhook_humor():
     slack.post_message(request.form["user_id"], "Ok! Bom dia!")
     return "Hello moto"
 
-
-def check_token():
-    # VERIFY IN ENV
-    pass

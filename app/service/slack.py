@@ -5,5 +5,8 @@ class Slack(object):
     def post_message(self, channel_id, message):
         pass
 
-    def train(self, message):
+    def send_analyze_week(self, message):
+        pass
+
+    def send_analyze_month(self, message):
         pass
