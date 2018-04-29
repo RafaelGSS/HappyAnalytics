@@ -24,11 +24,17 @@ class DB(object):
             return False
         
         qry = "SELECT {} FROM {}".format(columns, table)
-        if where:
-            qry = qry + " WHERE {}".format(where)
+        if where is not None:
+            with_where = "SELECT {} FROM {} WHERE {}".format(columns, table, where)
+            rows = self.connection.execute(with_where)
+            if rows > 0:
+                return self.connection.fetchall()
+            return None
 
-        self.connection.execute(qry)
-        return self.connection.fetchall()
+        rows = self.connection.execute(qry)
+        if rows > 0:
+            return self.connection.fetchall()
+        return None
 
     def insert(self, table, columns, values):
         if not self.connected:

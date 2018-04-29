@@ -3,6 +3,8 @@
 https://bot-pylack.slack.com/services/352922744983?updated=1#service_setup
 
 
+### Messages outhook
+
 ```
 ImmutableMultiDict(
 [
@@ -20,4 +22,24 @@ ImmutableMultiDict(
 
  ])
  
+```
+***
+
+### Private Messages outhook
+
+```json
+
+
+```
+
+### Messages send
+
+```json
+
+```
+
+### Messages private send
+
+```json
+
 ```

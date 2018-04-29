@@ -19,9 +19,9 @@ def index():
 
 
 def outhook_test():
-    data ={'token': '6aEIbL0AaoylQbD9HNSlKYDR','channel_name':'general',
-        'trigger_word':'paulinho','team_id':'TAC09TX6K', 'user_id':'UAB2X1Z7F','user_name':'rafael.nunu',
-        'text':'paulinho: que isso ?', 'service_id':'352922744983','channel_id':'CAB2VSA7P','team_domain':'bot-pylack'}
+    data ={'token': '6aEIbL0AaoylQbD9HNSlKYDR','channel_name':'general2',
+        'trigger_word':'paulinho','team_id':'TAC09TX6K', 'user_id':'UAB2X1Z7Z','user_name':'rafael.nunu2',
+        'text':'paulinho: que isso ?', 'service_id':'352922744983','channel_id':'CAB2VSA7X','team_domain':'bot-pylack'}
     repo.store_message(data, 'messages')
     return True
 
@@ -35,10 +35,10 @@ def outhook():
     return "Hello moto"
 
 
-@app.route('/api/private/humor', methods=['POST'])
 # Receiving data and store a database for analytics
+@app.route('/api/private/humor', methods=['POST'])
 def outhook_humor():
-    repo.store_message(request.form, 'messages')
+    repo.store_message(request.form, 'daily_report')
     slack.post_message(request.form["user_id"], "Ok! Bom dia!")
     return "Hello moto"
 
