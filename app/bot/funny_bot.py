@@ -8,7 +8,7 @@ class FunnyBot(object):
         self.keys = ["vide", 'engraad', 'novidades',
                      'mem', "imagens", "divertidas",
                      "fot", "piad"]
-        self.maxmemesent = 3
+        self.maxmemesent = 5
 
     def analyze_response(self, message):
         msg = message.lower().split(" ")
@@ -44,7 +44,7 @@ class FunnyBot(object):
                     thememe = meme
 
             repo.update_count_meme(set=int(thememe['counter']) + 1, id=thememe['id'])
-            return {"type": mtype, "link": thememe['permalink_url'] if mtype != 'photo' else thememe['full_picture']}
+            return {"type": mtype, "link": thememe['permalink_url'], "image":  thememe['full_picture']}
 
-        return {"type": None, "link": None}
+        return {"type": None, "link": None, "image": None}
 
