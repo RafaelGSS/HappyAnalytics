@@ -1,5 +1,7 @@
 import requests
 import env
+from singleton_analytic import analytic
+from singleton_repo import repo
 
 class Slack(object):
     def __init__(self):
@@ -18,14 +20,13 @@ class Slack(object):
 
         return 'Post error'
 
-    def send_analyze_week(self, message):
-        pass
+    def send_analyze_week(self, channel_id, message):
+        data = repo.get_last_week()
+        #seu_metodo(data)
+        analize_path = analytic.analyze_report_humor(data)
+        return '{}/{}'.format(env.APP_URL, analize_path)
+        #return self.post_message(channel_id, '{}/{}'.format(env.APP_URL, analize_path))
 
-    def send_analyze_month(self, message):
-        pass
-
-    def send_message_users(self):
-        pass
 
     def get_message_formated(self, data):
         if data['event']['type'] != 'message':

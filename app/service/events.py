@@ -1,6 +1,8 @@
 import env
 from app.bot.funny_bot import FunnyBot
 from singleton_repo import repo
+from singleton_slack import slack
+from singleton_analytic import analytic
 import re
 
 bot = FunnyBot()
@@ -12,10 +14,17 @@ class Events(object):
     def __init__(self):
         self.trigger_humor = 'humor'.format(env.NAME_BOT)
         self.trigger_meme = 'meme'.format(env.NAME_BOT)
+        self.trigger_analytic = 'analise'
         self.triggers = {
             self.trigger_humor: self.store_humor,
-            self.trigger_meme: self.get_meme
+            self.trigger_meme: self.get_meme,
+            self.trigger_analytic: self.send_analytic_week
         }
+
+    def send_analytic_week(self, message):
+        data = repo.get_last_week()
+        analize_path = analytic.analyze_report_humor(data)
+        return '{}/{}'.format(env.APP_URL, analize_path)
 
     def store_humor(self, message):
         data = message['message'].split(self.trigger_humor)[1] # Get message after NAME_BOT: humor
@@ -45,10 +54,15 @@ class Events(object):
     def valid_message(self, message):
         check_meme = re.search(self.trigger_meme, message)
         check_humor = re.search(self.trigger_humor, message)
+        check_analytic = re.search(self.trigger_analytic, message)
+
         if check_humor is not None:
             return self.triggers[self.trigger_humor]
 
         if check_meme is not None:
             return self.triggers[self.trigger_meme]
+
+        if check_analytic is not None:
+            return self.triggers[self.trigger_analytic]
 
         return False

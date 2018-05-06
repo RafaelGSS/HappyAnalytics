@@ -1,16 +1,10 @@
 from bootstrap.main_app import app
-from flask import request
+from flask import request, render_template
 from singleton_slack import slack
-from singleton_repo import repo
-from singleton import analytic, events
-
+from singleton import events
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
-    # url_verification
-    #with open('text.txt', 'w') as file:
-     #   file.write(request.get_json())
-
     if request.method == 'GET':
         return request.args.get('challenge')
 
@@ -30,19 +24,10 @@ def index():
     return 'IS NOT MESSAGE VALID!'
 
 
-# @app.route('/api/channel/outhook', methods=['POST'])
-# def outhook():
-#     repo.store_message(request.form, 'messages')
-#     response = bot.analyze_response(request.form['text'])
-#     slack.post_message(request.form['channel_id'], response)
-#
-#     return "Hello moto"
+@app.route('/templates/<section>')
+def test2(section):
+    return render_template(section)
 
-
-# Receiving data and store a database for analytics
-@app.route('/api/private/humor', methods=['POST'])
-def outhook_humor():
-    repo.store_message(request.form, 'daily_report')
-    slack.post_message(request.form["user_id"], "Ok! Bom dia!")
-    return "Hello moto"
-
+@app.route('/get_template')
+def test():
+    return 'TROLOLO'
