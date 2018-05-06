@@ -1,13 +1,21 @@
 from app.database.db import DB
-import time
+import datetime
 
 
 class Repository(object):
     def __init__(self):
         self.db = DB()
 
-    def store_report(self, form, table, check_token=False):
-        pass
+    def store_report(self, table, user_id, description, note, check_token=False):
+        user = self.insert_user(user_id, '')
+        data = {
+            'user_id': user_id,
+            'note_humor': note,
+            'description': description,
+            'date': str(datetime.date.today())
+        }
+        message = self.db.insert_data(table, data)
+        return True if user and message else False
 
     def store_message(self, form, table, check_token=True):
         if check_token and not self.check_token(form['token']):
@@ -53,9 +61,10 @@ class Repository(object):
         month = self.db.select('daily_report', where='date > DATE(NOW() - INTERVAL 30 DAY) AND date <= DATE(NOW())')
         return month
 
-    def get_memes(self):
-        memes = self.db.select('memes')
+    def get_memes(self, args_gen=''):
+        memes = self.db.select('posts', args=args_gen)
         return memes
 
     def update_count_meme(self, id, set):
-        self.db.update('posts', where='id={}'.format(id), set='nsent={}'.format(set))
+        self.db.update('posts', where='id=\'{}\''.format(id), set='counter={}'.format(set))
+        return True

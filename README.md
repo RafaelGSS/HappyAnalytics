@@ -29,6 +29,26 @@ ImmutableMultiDict(
 
 ```json
 
+{  
+   'token':'g4d0HKopmVnerV2x0QY8eaNZ',
+   'team_id':'TAJ8N4WHE',
+   'api_app_id':'AAJV5HNMQ',
+   'event':{  
+      'type':'message',
+      'user':'UAJA3GE8Y',
+      'text':'deu certo',
+      'ts':'1525572355.000012',
+      'channel':'DAKTFGHLN',
+      'event_ts':'1525572355.000012',
+      'channel_type':'im'
+   },
+   'type':'event_callback',
+   'event_id':'EvAJTNM6GK',
+   'event_time':1525572355,
+   'authed_users':[  
+      'UAJNFS8JG'
+   ]
+}
 
 ```
 

@@ -1,8 +1,6 @@
 from stemmingPT.stemmingPT import *
-
-from app.repository.repository import Repository
 from random import randint
-from singleton import repo
+from singleton_repo import repo
 
 class FunnyBot(object):
     def __init__(self):
@@ -29,25 +27,24 @@ class FunnyBot(object):
             if 'vide' in msg:
                 mtype = "video"
 
-            # WITH LIMIT 10 orderby haha
-            memes = repo.get_memes()
+            memes = repo.get_memes(args_gen='WHERE type=\'{}\' ORDER BY haha DESC limit 10'.format(mtype))
 
             best = float("-inf")
             thememe = None
             weights = [1.0, 2.0, 3.0, 4.0, -1.0, -2.0]
 
             for meme in memes:
-                total = [meme.like, meme.love, meme.wow, meme.haha,
-                         meme.sad, meme.angry]
+                total = [meme['like'], meme['love'], meme['wow'], meme['haha'],
+                         meme['sad'], meme['angry']]
 
                 tmp = sum([a * b for a, b in zip(total, weights)]) / sum(total)
 
-                if tmp > best and meme.nsent < self.maxmemesent:
+                if tmp > best and meme['counter'] < self.maxmemesent:
                     best = tmp
                     thememe = meme
 
-            repo.update_count_meme(table='posts', set='nsent={}'.format(thememe.nsent + 1), where='id={}'.format(thememe.id))
-            return {"type": mtype, "link": thememe.permalink_url}
+            repo.update_count_meme(set=int(thememe['counter']) + 1, id=thememe['id'])
+            return {"type": mtype, "link": thememe['permalink_url'] if mtype != 'photo' else thememe['full_picture']}
 
         return {"type": None, "link": None}
 

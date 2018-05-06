@@ -3,7 +3,7 @@ import sched
 from datetime import datetime, timedelta
 import time
 # SE DER TEMPO FAZER POLIMORFISMO DESSA CLASSE
-from singleton import slack
+from singleton_slack import slack
 
 
 class BotScheduler(object):

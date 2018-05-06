@@ -19,11 +19,11 @@ class DB(object):
         self.connection.execute(query)
         return self.connection.fetchall()
 
-    def select(self, table, columns="*", where=None):
+    def select(self, table, columns="*", where=None, args=''):
         if not self.connected:
             return False
         
-        qry = "SELECT {} FROM {}".format(columns, table)
+        qry = "SELECT {} FROM {} {}".format(columns, table, args)
         if where is not None:
             with_where = "SELECT {} FROM {} WHERE {}".format(columns, table, where)
             rows = self.connection.execute(with_where)
@@ -69,7 +69,7 @@ class DB(object):
         try:
             db = MySQLdb.connect(host=self.host,user=self.user, passwd=self.password, db=self.database)
             db.autocommit(True)
-            self.connection = db.cursor()
+            self.connection = db.cursor(MySQLdb.cursors.DictCursor)
             self.connected = True
         except Exception:
             self.connected = False
