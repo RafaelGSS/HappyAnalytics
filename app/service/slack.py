@@ -10,3 +10,6 @@ class Slack(object):
 
     def send_analyze_month(self, message):
         pass
+
+    def send_message_users(self):
+        pass

@@ -58,6 +58,13 @@ class DB(object):
         qry = "INSERT INTO {}({}) VALUES({})".format(table, keys, values)
         return self.connection.execute(qry)
 
+    def update(self, table, where, set):
+        if not self.connected:
+            return False
+
+        qry = "UPDATE {} SET {} WHERE {}".format(table, set, where)
+        return self.connection.execute(qry)
+
     def connect(self):
         try:
             db = MySQLdb.connect(host=self.host,user=self.user, passwd=self.password, db=self.database)

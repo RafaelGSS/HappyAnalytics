@@ -1,13 +1,6 @@
 from bootstrap.main_app import app
-from app.repository.repository import Repository
-from app.bot.funny_bot import FunnyBot
-from app.service.slack import Slack
 from flask import request
-
-# Dependencies Injection latter.
-repo = Repository()
-bot = FunnyBot()
-slack = Slack()
+from singleton import repo, bot, slack, analytic
 
 
 @app.route('/', methods=['POST', 'GET'])
@@ -24,6 +17,17 @@ def outhook_test():
         'text':'paulinho: que isso ?', 'service_id':'352922744983','channel_id':'CAB2VSA7X','team_domain':'bot-pylack'}
     repo.store_message(data, 'messages')
     return True
+
+
+def outhook_test_month():
+    data = repo.get_last_month()
+    graph_path = analytic.analyze_report_humor(data)
+
+
+def outhook_test_week():
+    data = repo.get_last_week()
+    graph_path = analytic.analyze_report_humor(data)
+    # slack service send graph
 
 
 @app.route('/api/channel/outhook', methods=['POST'])

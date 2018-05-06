@@ -44,3 +44,18 @@ class Repository(object):
         if token:
             return True
         return False
+
+    def get_last_week(self):
+        week = self.db.select('daily_report', where='date > DATE(NOW() - INTERVAL 7 DAY) AND date <= DATE(NOW())')
+        return week
+
+    def get_last_month(self):
+        month = self.db.select('daily_report', where='date > DATE(NOW() - INTERVAL 30 DAY) AND date <= DATE(NOW())')
+        return month
+
+    def get_memes(self):
+        memes = self.db.select('memes')
+        return memes
+
+    def update_count_meme(self, id, set):
+        self.db.update('posts', where='id={}'.format(id), set='nsent={}'.format(set))
