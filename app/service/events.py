@@ -12,11 +12,18 @@ class Events(object):
         self.trigger_humor = 'humor'
         self.trigger_meme = 'meme'
         self.trigger_analytic = 'analise'
+        self.trigger_analytic_corr = 'analise_corr'
         self.triggers = {
             self.trigger_humor: self.store_humor,
             self.trigger_meme: self.get_meme,
-            self.trigger_analytic: self.send_analytic_week
+            self.trigger_analytic: self.send_analytic_week,
+            self.trigger_analytic_corr: self.send_analytic_week_corr
         }
+
+    def send_analytic_week_corr(self, image_name, message):
+        data = repo.get_last_week_ordened()
+        analize_path = analytic.analyze_correlation(data, image_name=image_name)
+        return '{}/{}'.format(env.APP_URL, analize_path)
 
     def send_analytic_week(self, message, image_name):
         data = repo.get_last_week()

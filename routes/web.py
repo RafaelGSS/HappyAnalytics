@@ -33,6 +33,12 @@ def analytic():
     return event(image_name='templates/analyze_{}.html'.format(datetime.date.today()), message='')
 
 
+@app.route('/analytic-corr', methods=['POST'])
+def analytic_corr():
+    event = events.triggers[events.trigger_analytic_corr]
+    return event(image_name='templates/analyze_corr_{}.html'.format(datetime.date.today()), message='')
+
+
 @app.route('/templates/<section>')
 def test2(section):
     return render_template(section)

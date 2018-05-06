@@ -34,6 +34,10 @@ class Repository(object):
             return True
         return False
 
+    def get_last_week_ordened(self):
+        week = self.db.select('daily_report', where='date > DATE(NOW() - INTERVAL 7 DAY) AND date <= DATE(NOW()) ORDER BY date DESC')
+        return week
+
     def get_last_week(self):
         week = self.db.select('daily_report', where='date > DATE(NOW() - INTERVAL 7 DAY) AND date <= DATE(NOW())')
         return week
