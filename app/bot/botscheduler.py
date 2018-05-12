@@ -56,25 +56,3 @@ class BotScheduler(object):
         except KeyboardInterrupt:
             print('error')
 
-if __name__ == "__main__":
-    import argparse
-    DESCRIPTION = '''
-    Agendador de envio de mensagens
-    '''
-    PARSER = argparse.ArgumentParser(
-        description=DESCRIPTION)
-
-    PARSER.add_argument("-s",
-                        help="The hour that the bot start to send mesage",
-                        type=int,
-                        default=7)
-
-    PARSER.add_argument("-m",
-                        help="The minutes that the bot start the mesage",
-                        type=int,
-                        default=0)
-
-    ARGS = PARSER.parse_args()
-
-    bot = BotScheduler()
-    bot.run(ARGS.s, ARGS.m)

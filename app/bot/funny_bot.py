@@ -1,10 +1,10 @@
-from stemming_pt.stemmingPT import *
+from stemmingPT.stemmingPT import *
 from random import randint
 from singleton_repo import repo
 
+
 class FunnyBot(object):
     def __init__(self):
-
         self.keys = ["vide", 'engraad', 'novidades',
                      'mem', "imagens", "divertidas",
                      "fot", "piad"]

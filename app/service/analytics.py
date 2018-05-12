@@ -4,6 +4,7 @@ from plotly.offline import download_plotlyjs, plot, iplot
 import cufflinks as cf
 from scipy.stats import pearsonr
 
+
 class Analytic(object):
     def __init__(self):
         cf.go_offline()

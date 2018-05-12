@@ -33,7 +33,7 @@ class Events(object):
     def store_humor(self, message, user_id, user_name):
         formated = message.split(' ')
         if len(formated) < 1:
-            return 'Ops! Para salvar seu humor diario voce precisa mandar assim: {}: humor [sua nota de 0 a 5] [descricao sobre sua nota(opcional)]'.format(env.NAME_BOT)
+            return 'Ops! Faltando especificador'
 
         note = formated[0]
         description = ' '.join(formated[1:]) if len(formated) > 1 else ''
