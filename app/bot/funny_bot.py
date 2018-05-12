@@ -1,4 +1,4 @@
-from stemmingPT.stemmingPT import *
+from stemming_pt.stemmingPT import *
 from random import randint
 from singleton_repo import repo
 
